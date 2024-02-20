@@ -1,9 +1,9 @@
-import p1_img from "./product_12.png";
-import p2_img from "./product_35.png";
-import p3_img from "./product_14.png";
-import p4_img from "./product_8.png";
-import p5_img from "./product_15.png";
-import p6_img from "./product_2.png";
+import p1_img from "./Naruto_2000x-1_3e7416f9-6c1a-4d24-84db-2caa555e9a62_400x.webp";
+import p2_img from "./one_pi_400x.webp";
+import p3_img from "./WhatsAppImage2023-04-28at5.32.46PM_400x.webp";
+import p4_img from "./67114484_347652402824825_2814255461611989589_n_400x.webp";
+import p5_img from "./one_pi_400x.webp";
+import p6_img from "./lucky_panda_bobblehead_awestuffs_16_400x.webp";
 import p7_img from "./product_17.png";
 import p8_img from "./product_28.png";
 
