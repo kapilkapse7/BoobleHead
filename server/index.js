@@ -107,7 +107,7 @@ app.post('/removeproduct' , async(req, res)=>{
         await Product.findOneAndDelete({id:req.body.id});
         console.log("removed");
         res.json({
-            sucess:true,
+            success:true,
             name:req.body.name
         });
 
@@ -121,7 +121,81 @@ app.get("/allproducts" , async(req, res)=>{
 } )
 
 
+const Users = mongoose.model('Users',{
+    name:{
+        type:String,
+    },
+    email:{
+        type:String,
+        unique:true,
+    },
+    password:{
+        type:String,
+    },
+    cartData:{
+        type:Object,
+    },
+    date:{
+        type:Date,
+        default:Date.now,
+    }
+})
 
+app.post("/signup", async(req,res)=>{
+    let check = await Users.findOne({email:req.body.email});
+
+    if(check){
+        return res.status(400).json({success:false,errors:"existing user found with same email id "})
+    }
+
+    let cart = {};
+    for (let i = 0; i < 3000; i++) {
+        cart[i] =0;     
+    }
+
+    const user = new Users({
+        name:req.body.username,
+        email:req.body.email,
+        password:req.body.password,
+        cartData:cart,
+    });
+
+    await user.save();
+
+    const data = {
+        user:{
+            id:user.id
+        }
+    }
+
+    const token = jwt.sign(data,'kapil');
+    res.json({success:true,token})
+})
+
+
+app.post("/login", async(req,res)=>{
+    let user = await Users.findOne({emial:req.body.emial});
+    if(user){
+        const passComapre = req.body.password ===user.password;
+        if(passComapre){
+            const data = {
+                user:{
+                    id:user.id
+                }
+            }
+
+            const token = jwt.sign(data, "kapil");
+            res.json({success:true,token});
+        }
+        else{
+            res.json({success:false,errors:"Wrong password"})
+        }
+    }
+    else{
+        res.json({success:false, errors:"Wrong Email id"})
+    }
+
+})
 
 
 
